@@ -7,7 +7,7 @@ const Users = () => {
 
     const handleDelete = (id) => {
         // console.log(id);
-        fetch(`http://localhost:5000/user/${id}`, {
+        fetch(`https://coffee-store-server-fl6f8tl27-abdur-rahmans-projects.vercel.app/user/${id}`, {
             method: "DELETE"
         })
             .then(res => res.json())
