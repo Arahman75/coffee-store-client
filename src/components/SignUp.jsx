@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from './providers/AuthProvider';
+import axios from 'axios';
 
 const SignUp = () => {
     const { createUser } = useContext(AuthContext);
@@ -15,22 +16,33 @@ const SignUp = () => {
                 console.log(result.user)
                 // new user has been created
                 const createdAt = result.user?.metadata?.creationTime;
-
                 const user = { email, createdAt };
-                fetch('https://coffee-store-server-fl6f8tl27-abdur-rahmans-projects.vercel.app/user', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(user)
-                })
-                    .then(res => res.json())
+
+                // using axios
+
+                axios.post('http://localhost:5000/user', user)
                     .then(data => {
-                        console.log(data)
-                        if (data.insertedId) {
+                        console.log(data.data);
+                        if (data.data.insertedId) {
                             alert('user create added database successfully')
                         }
                     })
+
+                // using fetch
+                // fetch('http://localhost:5000/user', {
+                //     method: 'POST',
+                //     headers: {
+                //         'content-type': 'application/json'
+                //     },
+                //     body: JSON.stringify(user)
+                // })
+                //     .then(res => res.json())
+                //     .then(data => {
+                //         console.log(data)
+                //         if (data.insertedId) {
+                //             alert('user create added database successfully')
+                //         }
+                //     })
             }
             )
             .catch(error =>

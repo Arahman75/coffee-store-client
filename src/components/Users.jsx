@@ -1,13 +1,29 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
 const Users = () => {
     const loadedUsers = useLoaderData();
     const [users, setUsers] = useState(loadedUsers);
 
+    // useEffect(()=>{
+    //     fetch('/')
+    //     .then(res => res.json())
+    //     .then(data =>{
+    //         console.log(data);
+    //     })
+    // },[])
+
+    // useEffect(()=>{
+    //     axios.get('/')
+    //     .then(data =>{
+    //         console.log(data.data);
+    //     })
+    // },[])
+
     const handleDelete = (id) => {
         // console.log(id);
-        fetch(`https://coffee-store-server-fl6f8tl27-abdur-rahmans-projects.vercel.app/user/${id}`, {
+        fetch(`http://localhost:5000/user/${id}`, {
             method: "DELETE"
         })
             .then(res => res.json())
