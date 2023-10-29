@@ -15,6 +15,12 @@ import AuthProvider from './components/providers/AuthProvider.jsx';
 import Users from './components/Users.jsx';
 import Main from './components/Main.jsx';
 
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+import User2 from './components/User2.jsx';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -42,20 +48,31 @@ const router = createBrowserRouter([
       {
         path: "/signin",
         element: <SignIn></SignIn>
-      }, {
+      },
+      {
         path: '/users',
         element: <Users></Users>,
         loader: () => fetch('http://localhost:5000/user')
+      },
+      {
+        path: '/users2',
+        element: <User2></User2>,
       }
     ]
   },
 
 ]);
 
+// Create a client
+const queryClient = new QueryClient()
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </QueryClientProvider>
+
   </React.StrictMode>,
 )
